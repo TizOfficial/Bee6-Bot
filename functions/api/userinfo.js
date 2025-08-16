@@ -1,5 +1,4 @@
 export async function onRequest(context) {
-  // Query-Parameter auslesen (z. B. /api/userinfo?id=USERID)
   const url = new URL(context.request.url);
   const userId = url.searchParams.get("id");
 
@@ -26,7 +25,10 @@ export async function onRequest(context) {
 
     const user = await response.json();
 
-    // Nützliche Daten zurückgeben
+    // Account erstellt (Snowflake -> Timestamp)
+    const createdMs = Number(BigInt(user.id) >> 22n) + 1420070400000;
+    const createdUnix = Math.floor(createdMs / 1000);
+
     const userData = {
       id: user.id,
       username: user.username,
@@ -36,7 +38,13 @@ export async function onRequest(context) {
       banner: user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.png` : null,
       accent_color: user.accent_color,
       bot: user.bot || false,
-      createdAt: new Date(Number(BigInt(user.id) >> 22n) + 1420070400000).toISOString()
+
+      // normale Zeit
+      createdAt: new Date(createdMs).toISOString(),
+
+      // Discord Timestamp
+      createdAtDiscord: `<t:${createdUnix}:f>`,
+      createdAtRelative: `<t:${createdUnix}:R>`
     };
 
     return new Response(JSON.stringify(userData, null, 2), {
@@ -49,5 +57,4 @@ export async function onRequest(context) {
       headers: { "Content-Type": "application/json" }
     });
   }
-  }
-
+}
