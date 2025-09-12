@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inviteButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Replace with your actual Discord bot invite URL
-            window.open('https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands', '_blank');
+            window.open('https://discord.com/oauth2/authorize?client_id=1415445558222651475&permissions=2147830848&integration_type=0&scope=bot+applications.commands', '_blank');
         });
     });
     
