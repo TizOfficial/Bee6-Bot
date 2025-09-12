@@ -58,6 +58,12 @@ nav {
     display: flex;
     align-items: center;
     gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.logo:hover {
+    opacity: 0.8;
 }
 
 .bee-logo {
@@ -73,18 +79,25 @@ nav {
 }
 
 .invite-btn, .cta-btn {
-    background: #FFD700;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
     color: #000;
     border: none;
     padding: 0.8rem 1.5rem;
     border-radius: 25px;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    font-size: 1rem;
 }
 
 .invite-btn:hover, .cta-btn:hover {
     transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+}
+
+.invite-btn:active, .cta-btn:active {
+    transform: scale(0.98);
 }
 
 /* Hero section with glassmorphism */
@@ -390,11 +403,17 @@ h2 {
     color: #FFD700;
     text-decoration: none;
     margin: 0 0.5rem;
-    transition: opacity 0.3s;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .social-link:hover {
-    opacity: 0.7;
+    background: rgba(255, 215, 0, 0.1);
+    border-color: #FFD700;
+    transform: translateY(-2px);
 }
 
 /* Legal pages styling */
@@ -459,14 +478,114 @@ h2 {
 }
 
 .back-link {
+    display: inline-block;
     color: #FFD700;
     text-decoration: none;
+    padding: 1rem 2rem;
+    border: 2px solid #FFD700;
+    border-radius: 25px;
+    transition: all 0.3s ease;
     font-weight: 600;
-    transition: opacity 0.3s ease;
 }
 
 .back-link:hover {
-    opacity: 0.7;
+    background: #FFD700;
+    color: #000;
+    transform: translateY(-2px);
+}
+
+/* FAQ specific styles */
+.faq-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-bottom: 3rem;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(255, 215, 0, 0.05);
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #FFD700;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    color: #FFD700;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1.5rem;
+}
+
+.faq-answer.active {
+    max-height: 300px;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.faq-answer p {
+    margin: 0;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.faq-answer code {
+    background: rgba(255, 215, 0, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    color: #FFD700;
+    font-family: 'Space Mono', monospace;
+}
+
+.faq-answer a {
+    color: #FFD700;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.faq-answer a:hover {
+    border-color: #FFD700;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
 }
 
 /* Footer updates */
@@ -486,16 +605,21 @@ footer {
 .footer-links {
     display: flex;
     gap: 2rem;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .footer-link {
     color: #FFD700;
     text-decoration: none;
-    transition: opacity 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
 }
 
 .footer-link:hover {
-    opacity: 0.7;
+    background: rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
 }
 
 /* Mobile optimizations */
@@ -527,4 +651,36 @@ footer {
     .legal-content h2 {
         font-size: 1.3rem;
     }
-  }
+    
+    .invite-btn, .cta-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .social-link {
+        margin: 0.25rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .faq-question {
+        padding: 1.2rem;
+    }
+    
+    .faq-question h3 {
+        font-size: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .faq-icon {
+        font-size: 1.2rem;
+    }
+    
+    .faq-answer.active {
+        padding: 0 1.2rem 1.2rem;
+    }
+    
+    .faq-subtitle {
+        font-size: 1rem;
+    }
+    }
