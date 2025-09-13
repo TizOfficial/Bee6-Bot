@@ -1,20 +1,21 @@
+// Global invite function - moved outside DOMContentLoaded
+function inviteBot() {
+    window.open('https://discord.com/oauth2/authorize?client_id=1415445558222651475&permissions=2147830848&integration_type=0&scope=bot+applications.commands', '_blank');
+}
+
+// Global function for navigation - moved outside DOMContentLoaded  
+function goHome() {
+    window.location.href = 'index.html';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     createParticles();
     initTiltEffect();
     initScrollAnimations();
-    
-    const inviteButtons = document.querySelectorAll('.invite-btn, .cta-btn');
-    
-    inviteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Replace with your actual Discord bot invite URL
-            window.open('https://discord.com/oauth2/authorize?client_id=1415445558222651475&permissions=2147830848&integration_type=0&scope=bot+applications.commands', '_blank');
-        });
-    });
+    initFAQ();
     
     // Animated counter for stats
     const counters = document.querySelectorAll('.stat-number');
-    const speed = 200;
     
     const animateCounter = (counter) => {
         const target = +counter.getAttribute('data-target');
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             counter.innerText = Math.ceil(count + increment);
             setTimeout(() => animateCounter(counter), 10);
         } else {
-            counter.innerText = shouldAddDecimal ? '99.9' : target;
+            counter.innerText = shouldAddDecimal ? '99.9' : target.toLocaleString();
         }
     };
     
@@ -45,6 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     counters.forEach(counter => {
         observer.observe(counter);
+    });
+
+    // Add click handlers to team social links
+    document.querySelectorAll('.social-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Social link clicked! Replace with actual social media URL.');
+        });
     });
 });
 
@@ -113,3 +122,43 @@ function initScrollAnimations() {
         observer.observe(el);
     });
 }
+
+// FAQ accordion functionality
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all FAQ items
+            faqItems.forEach(faqItem => {
+                faqItem.classList.remove('active');
+                faqItem.querySelector('.faq-answer').classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                answer.classList.add('active');
+            }
+        });
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
